@@ -29,9 +29,10 @@ Arkasından tarayıcıda:
     ```
    * Bağlı istemci varsa, sayısını dönüyor.
  	* Yoksa 0 dönüyor.
- 	* Hata dönerse eksi bir sayı istiyor.
+ 	* Hata dönerse eksi bir sayı dönüyor.
 
  * Diğer request'lerde 
+ 
    * "Kimi aramistiniz?"u dönüyor.
   
  Yapılabilecekler
