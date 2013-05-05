@@ -8,6 +8,7 @@ Modem'e bağlanıp, istemcilerin listelendiği sayfayı çekiyor. Kaç tane iste
 Bağlı Olduğu Kütüphaneler
 ==========================
 * Requests (http://docs.python-requests.org/en/latest/)
+   
    ```
    pip install requests
    ```
@@ -16,12 +17,14 @@ Kullanımı
 ==========================
  SimpleHttpServer ile çalışıyor. Ayrıca bir sunucuya ihtiyaç duymuyor.
   
-      ```
       python -m anyone_in_the_house.py
-      ```
+      
  
 Arkasından tarayıcıda: 
- * ```http://sunucu/kac-kisi```
+ * 
+   ```
+      http://sunucu/kac-kisi
+    ```
    * Bağlı istemci varsa, sayısını dönüyor.
  	* Yoksa 0 dönüyor.
  	* Hata dönerse eksi bir sayı istiyor.
