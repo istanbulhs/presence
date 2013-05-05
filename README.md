@@ -32,8 +32,11 @@ Arkasından tarayıcıda:
  * Diğer request'lerde 
    * "Kimi aramistiniz?"u dönüyor.
   
- 
- 
+ Yapılabilecekler
+--------------------------
+ * config parametreleri ayri bir dosyaya aktarılabilir
+ * Sürekli çalışıp çalışmadığını kontrol eden bir script yazılabilir 
+ * bootup'ta betiğin çalışması için linux'ta ne yapılması gerektiği yazılabilir (ve bizim sunucuya da eklenebilir)
    
  
  
