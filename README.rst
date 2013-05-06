@@ -16,22 +16,8 @@ AnyoneInTheHouseScript/test/data/wlstationlist.cmd
 Bağlı Olduğu Kütüphaneler
 -------------------------
 
-* `Spyne <http://spyne.io>`_\. Yuklemek icin asagidaki dort komuttan begendiginizi
-  kullanabilirsiniz: ::
-
-    # pip install spyne
-    $ easy_install --user spyne
-    # easy_install spyne
-    $ sudo easy_install spyne
-
-* `Requests <http://python-requests.org>`_\. Yuklemek icin asagidaki dort komuttan
-  begendiginizi kullanabilirsiniz: ::
-
-    # pip install requests
-    $ easy_install --user requests
-    # easy_install requests
-    $ sudo easy_install requests
-
+* `Spyne <http://spyne.io>`_ ve onun bagimliliklari olan werkzeug, pyparsing vs.
+  Setup scripti hepsini hallediyor.
 
 Kurulum
 -------
