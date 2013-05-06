@@ -77,7 +77,7 @@ setup(
     url='http://istanbulhs.org',
     license='MIT',
     zip_safe=False,
-    install_requires=['spyne>=2.10', 'SQLAlchemy>=0.8.0'],
+    install_requires=['spyne>=2.10'],
 
     entry_points={
         'console_scripts': [
