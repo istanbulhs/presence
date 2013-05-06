@@ -1,4 +1,3 @@
-
 Presence
 ========
 
@@ -7,9 +6,6 @@ Wireless'a bağlı cihaz olup olmadığını kontrol eden basit bir betik.
 Modem'e bağlanıp, istemcilerin listelendiği sayfayı çekiyor. Kaç tane istemci 
 olduğunu sayıp onun sayısını dönüyor. Hata alırsa eksi bir sayı dönüyor. Bağlı 
 istemci olmazsa 0 dönüyor. 
-
-Geliştirmek isteyenler çektiğim html dosyasını şurdan bulabilirler: 
-https://github.com/istanbulhs/presence/blob/master/presence/test/data/wlstationlist.cmd
 
 
 Bağlı Olduğu Kütüphaneler
