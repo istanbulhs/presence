@@ -44,7 +44,7 @@ from setuptools import find_packages
 from setuptools.command.test import test as TestCommand
 
 
-v = open(os.path.join(os.path.dirname(__file__), 'anyone', '__init__.py'), 'r')
+v = open(os.path.join(os.path.dirname(__file__), 'presence', '__init__.py'), 'r')
 VERSION = re.match(r".*__version__ = '(.*?)'", v.read(), re.S).group(1)
 
 SHORT_DESC="""A Template project."""
@@ -53,7 +53,7 @@ LONG_DESC = """Yes, really, just a Template project."""
 
 
 setup(
-    name='anyone',
+    name='presence',
     packages=find_packages(),
 
     version=VERSION,
@@ -81,7 +81,7 @@ setup(
 
     entry_points={
         'console_scripts': [
-            'anyone_daemon=anyone.main:main',
+            'presence_daemon=presence.main:main',
         ]
     },
 )
