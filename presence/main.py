@@ -30,6 +30,10 @@
 import logging
 logger = logging.getLogger(__name__)
 
+import os
+import yaml
+import presence
+
 from spyne.protocol.http import HttpRpc
 from spyne.protocol.json import JsonDocument
 from spyne.server.wsgi import WsgiApplication
@@ -41,6 +45,12 @@ from presence.entity.device import DeviceService
 from wsgiref.simple_server import make_server
 
 def main():
+    if not os.path.isfile('config.yaml'):
+        raise Exception(
+               "'config.yaml' bulunamadi. once config dosyasini bir yaziverin.")
+
+    presence.config = yaml.load(open('config.yaml', 'r').read())
+
     logging.basicConfig(level=logging.DEBUG)
 
     application = MyApplication([DeviceService],
@@ -50,9 +60,11 @@ def main():
             )
 
     wsgi_app = WsgiApplication(application)
-    server = make_server('0.0.0.0', 8000, wsgi_app)
+    host = presence.config['daemon']['host']
+    port = int(presence.config['daemon']['port'])
+    server = make_server(host, port, wsgi_app)
 
-    logging.info("listening to http://127.0.0.1:8000")
+    logging.info("listening to http://%s:%d", host, port)
     logging.info("wsdl is at: http://localhost:8000/?wsdl")
 
     return server.serve_forever()

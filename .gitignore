@@ -7,3 +7,6 @@
 
 # netbeans cruft
 nbproject
+
+# don't commit this!
+config.yaml

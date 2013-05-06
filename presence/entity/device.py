@@ -29,32 +29,34 @@
 
 import requests
 
+import presence
+
 from spyne.service import ServiceBase
 from spyne.decorator import rpc
 from spyne.model.primitive import Integer
 from spyne.protocol.http import HttpPattern
 
-IP = ''
-CLIENTS_URL = "The url where the list of clients is kept"
-USER = "modem admin user"
-PASSWORD = "password"
-SSID = "ssid name"
-
 
 def get_file():
     html_str = None
 
-    response = requests.get(CLIENTS_URL, auth=(USER, PASSWORD), stream=False)
+    url = presence.config['modem']['url']
+    user = presence.config['modem']['user']
+    password = presence.config['modem']['password']
+
+    response = requests.get(url, auth=(user, password), stream=False)
     html_str = response.text
 
     return html_str
 
 
 def count_clients(html_string):
+    ssid = presence.config['modem']['ssid']
+
     if html_string is None or "" == html_string:
         return -1
     else:
-        return html_string.count(SSID)
+        return html_string.count(ssid)
 
 
 class DeviceService(ServiceBase):

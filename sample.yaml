@@ -1,0 +1,9 @@
+modem:
+  user: root
+  password: secret
+  ssid: SomeSSID
+  url: http://some-url
+
+daemon:
+  port: 8081
+  host: 0.0.0.0
