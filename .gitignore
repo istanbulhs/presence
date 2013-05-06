@@ -1,0 +1,9 @@
+# setuptools cruft
+*.egg-info
+
+# eclipse cruft
+.project
+.pydevproject
+
+# netbeans cruft
+nbproject
