@@ -1,6 +1,6 @@
 
-AnyoneInTheHouse?
-================
+Presence
+========
 
 Wireless'a bağlı cihaz olup olmadığını kontrol eden basit bir betik.
 
@@ -9,8 +9,7 @@ olduğunu sayıp onun sayısını dönüyor. Hata alırsa eksi bir sayı dönüy
 istemci olmazsa 0 dönüyor. 
 
 Geliştirmek isteyenler çektiğim html dosyasını şurdan bulabilirler: 
-https://github.com/istanbulhs/AnyoneInTheHouse/blob/master/
-AnyoneInTheHouseScript/test/data/wlstationlist.cmd
+https://github.com/istanbulhs/presence/blob/master/presence/test/data/wlstationlist.cmd
 
 
 Bağlı Olduğu Kütüphaneler
@@ -36,7 +35,7 @@ Kullanımı
 SimpleHttpServer ile çalışıyor. Ayrıca bir sunucuya ihtiyaç duymuyor. Kurulumdan
 sonra: ::
 
-    anyone_daemon
+    presence_daemon
 
 komutuyla calistiriliyor.
 

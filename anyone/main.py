@@ -34,9 +34,9 @@ from spyne.protocol.http import HttpRpc
 from spyne.protocol.json import JsonDocument
 from spyne.server.wsgi import WsgiApplication
 
-from anyone.application import MyApplication
+from presence.application import MyApplication
 
-from anyone.entity.device import DeviceService
+from presence.entity.device import DeviceService
 
 from wsgiref.simple_server import make_server
 
