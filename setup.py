@@ -77,7 +77,7 @@ setup(
     url='http://istanbulhs.org',
     license='BSD',
     zip_safe=False,
-    install_requires=['spyne>=2.10'],
+    install_requires=['spyne>=2.10', 'werkzeug', 'pyparsing<1.9', 'simplejson'],
 
     entry_points={
         'console_scripts': [

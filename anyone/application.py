@@ -38,7 +38,7 @@ from spyne.util.email import email_exception
 
 from sqlalchemy.orm.exc import NoResultFound
 
-from anyone.context import UserDefinedContext
+from presence.context import UserDefinedContext
 
 EXCEPTION_ADDRESS = "everybody@example.com"
 
