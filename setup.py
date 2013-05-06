@@ -75,7 +75,7 @@ setup(
     maintainer='Istanbul Hackerspace',
     maintainer_email='dev@istanbulhs.org',
     url='http://istanbulhs.org',
-    license='MIT',
+    license='BSD',
     zip_safe=False,
     install_requires=['spyne>=2.10'],
 

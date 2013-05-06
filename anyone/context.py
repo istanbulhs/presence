@@ -1,7 +1,6 @@
 # encoding: utf8
 #
-# Copyright © Burak Arslan <burak at arskom dot com dot tr>,
-#             Arskom Ltd. http://www.arskom.com.tr
+# Copyright © Alternatif Bilisim Dernegi <info at alternatifbilisim dot org>,
 # All rights reserved.
 #
 # Redistribution and use in source and binary forms, with or without
