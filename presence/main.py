@@ -27,38 +27,44 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import requests
+import logging
+logger = logging.getLogger(__name__)
 
-from spyne.service import ServiceBase
-from spyne.decorator import rpc
-from spyne.model.primitive import Integer
-from spyne.protocol.http import HttpPattern
+import os
+import yaml
+import presence
 
-IP = ''
-CLIENTS_URL = "The url where the list of clients is kept"
-USER = "modem admin user"
-PASSWORD = "password"
-SSID = "ssid name"
+from spyne.protocol.http import HttpRpc
+from spyne.protocol.json import JsonDocument
+from spyne.server.wsgi import WsgiApplication
 
+from presence.application import MyApplication
 
-def get_file():
-    html_str = None
+from presence.entity.device import DeviceService
 
-    response = requests.get(CLIENTS_URL, auth=(USER, PASSWORD), stream=False)
-    html_str = response.text
+from wsgiref.simple_server import make_server
 
-    return html_str
+def main():
+    if not os.path.isfile('config.yaml'):
+        raise Exception(
+               "'config.yaml' bulunamadi. once config dosyasini bir yaziverin.")
 
+    presence.config = yaml.load(open('config.yaml', 'r').read())
 
-def count_clients(html_string):
-    if html_string is None or "" == html_string:
-        return -1
-    else:
-        return html_string.count(SSID)
+    logging.basicConfig(level=logging.DEBUG)
 
+    application = MyApplication([DeviceService],
+                'http://istanbulhs.org/api',
+                in_protocol=HttpRpc(validator='soft'),
+                out_protocol=JsonDocument(ignore_wrappers=True),
+            )
 
-class DeviceService(ServiceBase):
-    @rpc(_returns=Integer, _http_patterns=[HttpPattern('/kac[-_]?cihaz')])
-    def kac_cihaz(self):
-        html_content = get_file()
-        return count_clients(html_content)
+    wsgi_app = WsgiApplication(application)
+    host = presence.config['daemon']['host']
+    port = int(presence.config['daemon']['port'])
+    server = make_server(host, port, wsgi_app)
+
+    logging.info("listening to http://%s:%d", host, port)
+    logging.info("wsdl is at: http://localhost:8000/?wsdl")
+
+    return server.serve_forever()

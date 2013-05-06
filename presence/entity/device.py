@@ -27,53 +27,40 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import logging
-logger = logging.getLogger(__name__)
+import requests
 
-from spyne.application import Application
-from spyne.error import Fault
-from spyne.error import InternalError
-from spyne.error import ResourceNotFoundError
-from spyne.util.email import email_exception
+import presence
 
-from sqlalchemy.orm.exc import NoResultFound
-
-from presence.context import UserDefinedContext
-
-EXCEPTION_ADDRESS = "everybody@example.com"
+from spyne.service import ServiceBase
+from spyne.decorator import rpc
+from spyne.model.primitive import Integer
+from spyne.protocol.http import HttpPattern
 
 
-def _on_method_call(ctx):
-    ctx.udc = UserDefinedContext()
+def get_file():
+    html_str = None
+
+    url = presence.config['modem']['url']
+    user = presence.config['modem']['user']
+    password = presence.config['modem']['password']
+
+    response = requests.get(url, auth=(user, password), stream=False)
+    html_str = response.text
+
+    return html_str
 
 
-def _on_method_context_closed(ctx):
-    pass
+def count_clients(html_string):
+    ssid = presence.config['modem']['ssid']
+
+    if html_string is None or "" == html_string:
+        return -1
+    else:
+        return html_string.count(ssid)
 
 
-class MyApplication(Application):
-    def __init__(self, services, tns, name=None,
-                                         in_protocol=None, out_protocol=None):
-        Application.__init__(self, services, tns, name, in_protocol,
-                                                                 out_protocol)
-
-        self.event_manager.add_listener('method_call', _on_method_call)
-        self.event_manager.add_listener("method_context_closed",
-                                                    _on_method_context_closed)
-
-    def call_wrapper(self, ctx):
-        try:
-            return ctx.service_class.call_wrapper(ctx)
-
-        except NoResultFound:
-            raise ResourceNotFoundError(ctx.in_object)
-
-        except Fault, e:
-            logger.error(e)
-            raise
-
-        except Exception, e:
-            logger.exception(e)
-            # This should not happen! Let the team know via email
-            email_exception(EXCEPTION_ADDRESS)
-            raise InternalError(e)
+class DeviceService(ServiceBase):
+    @rpc(_returns=Integer, _http_patterns=[HttpPattern('/kac[-_]?cihaz')])
+    def kac_cihaz(self):
+        html_content = get_file()
+        return count_clients(html_content)

@@ -30,29 +30,45 @@
 import logging
 logger = logging.getLogger(__name__)
 
-from spyne.protocol.http import HttpRpc
-from spyne.protocol.json import JsonDocument
-from spyne.server.wsgi import WsgiApplication
+from spyne.application import Application
+from spyne.error import Fault
+from spyne.error import InternalError
+from spyne.error import ResourceNotFoundError
+from spyne.util.email import email_exception
 
-from presence.application import MyApplication
+from presence.context import UserDefinedContext
 
-from presence.entity.device import DeviceService
+EXCEPTION_ADDRESS = "everybody@example.com"
 
-from wsgiref.simple_server import make_server
 
-def main():
-    logging.basicConfig(level=logging.DEBUG)
+def _on_method_call(ctx):
+    ctx.udc = UserDefinedContext()
 
-    application = MyApplication([DeviceService],
-                'http://istanbulhs.org/api',
-                in_protocol=HttpRpc(validator='soft'),
-                out_protocol=JsonDocument(ignore_wrappers=True),
-            )
 
-    wsgi_app = WsgiApplication(application)
-    server = make_server('0.0.0.0', 8000, wsgi_app)
+def _on_method_context_closed(ctx):
+    pass
 
-    logging.info("listening to http://127.0.0.1:8000")
-    logging.info("wsdl is at: http://localhost:8000/?wsdl")
 
-    return server.serve_forever()
+class MyApplication(Application):
+    def __init__(self, services, tns, name=None,
+                                         in_protocol=None, out_protocol=None):
+        Application.__init__(self, services, tns, name, in_protocol,
+                                                                 out_protocol)
+
+        self.event_manager.add_listener('method_call', _on_method_call)
+        self.event_manager.add_listener("method_context_closed",
+                                                    _on_method_context_closed)
+
+    def call_wrapper(self, ctx):
+        try:
+            return ctx.service_class.call_wrapper(ctx)
+
+        except Fault, e:
+            logger.error(e)
+            raise
+
+        except Exception, e:
+            logger.exception(e)
+            # This should not happen! Let the team know via email
+            email_exception(EXCEPTION_ADDRESS)
+            raise InternalError(e)
