@@ -36,8 +36,6 @@ from spyne.error import InternalError
 from spyne.error import ResourceNotFoundError
 from spyne.util.email import email_exception
 
-from sqlalchemy.orm.exc import NoResultFound
-
 from presence.context import UserDefinedContext
 
 EXCEPTION_ADDRESS = "everybody@example.com"
@@ -64,9 +62,6 @@ class MyApplication(Application):
     def call_wrapper(self, ctx):
         try:
             return ctx.service_class.call_wrapper(ctx)
-
-        except NoResultFound:
-            raise ResourceNotFoundError(ctx.in_object)
 
         except Fault, e:
             logger.error(e)
