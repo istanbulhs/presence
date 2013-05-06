@@ -12,15 +12,25 @@ Geliştirmek isteyenler çektiğim html dosyasını şurdan bulabilirler:
 https://github.com/istanbulhs/AnyoneInTheHouse/blob/master/
 AnyoneInTheHouseScript/test/data/wlstationlist.cmd
 
+
 Bağlı Olduğu Kütüphaneler
 -------------------------
 
-* Spyne (http://spyne.io). Yuklemek icin asagidaki uc komuttan begendiginizi
+* `Spyne <http://spyne.io>`_\. Yuklemek icin asagidaki dort komuttan begendiginizi
   kullanabilirsiniz: ::
 
-   pip install spyne
-   easy_install --user spyne
-   sudo easy_install spyne
+    # pip install spyne
+    $ easy_install --user spyne
+    # easy_install spyne
+    $ sudo easy_install spyne
+
+* `Requests <http://python-requests.org>`_\. Yuklemek icin asagidaki dort komuttan
+  begendiginizi kullanabilirsiniz: ::
+
+    # pip install requests
+    $ easy_install --user requests
+    # easy_install requests
+    $ sudo easy_install requests
 
 
 Kurulum
@@ -46,14 +56,15 @@ komutuyla calistiriliyor.
 
 Arkasından tarayıcıda: http://sunucu/kac-kisi
 
-    * Bağlı istemci varsa, sayısını dönüyor.
-        * Yoksa 0 dönüyor.
-        * Hata dönerse eksi bir sayı dönüyor.
+* Bağlı istemci varsa, sayısını dönüyor.
+* Yoksa 0 dönüyor.
+* Hata dönerse eksi bir sayı dönüyor.
 
 Yapılabilecekler
 ----------------
- * config parametreleri ayri bir dosyaya aktarılabilir
- * Sürekli çalışıp çalışmadığını kontrol eden bir script yazılabilir.
- * bootup'ta betiğin çalışması için linux'ta ne yapılması gerektiği yazılabilir.
-(ve bizim sunucuya da eklenebilir)
- * test yazılabilir
+
+* config parametreleri ayri bir dosyaya aktarılabilir
+* Sürekli çalışıp çalışmadığını kontrol eden bir script yazılabilir.
+* bootup'ta betiğin çalışması için linux'ta ne yapılması gerektiği yazılabilir.
+  (ve bizim sunucuya da eklenebilir)
+* test yazılabilir
