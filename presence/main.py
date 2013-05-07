@@ -55,7 +55,7 @@ def main():
     application = Application([DeviceService],
                 'http://istanbulhs.org/api',
                 in_protocol=HttpRpc(validator='soft'),
-                out_protocol=JsonDocument(ignore_wrappers=True),
+                out_protocol=JsonDocument(),
             )
 
     wsgi_app = WsgiApplication(application)
