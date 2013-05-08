@@ -47,9 +47,17 @@ from setuptools.command.test import test as TestCommand
 v = open(os.path.join(os.path.dirname(__file__), 'presence', '__init__.py'), 'r')
 VERSION = re.match(r".*__version__ = '(.*?)'", v.read(), re.S).group(1)
 
-SHORT_DESC="""A Template project."""
+SHORT_DESC="""Wireless router'a bagli cihazlarin listesini cekip cihaz sayisini
+gosteren bir api."""
 
-LONG_DESC = """Yes, really, just a Template project."""
+LONG_DESC = """Wireless router'a bagli cihazlarin listesini cekip cihaz sayisini
+gosteren bir api.
+
+Destekledigi router modeli:
+
+* DLink DSL-2600U
+
+"""
 
 
 setup(
