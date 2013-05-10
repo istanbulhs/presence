@@ -36,6 +36,8 @@ from spyne.decorator import rpc
 from spyne.model.primitive import Integer
 from spyne.protocol.http import HttpPattern
 
+from spyne.util.invregexp import invregexp
+
 
 def get_file():
     html_str = None
@@ -60,7 +62,7 @@ def count_clients(html_string):
 
 
 class DeviceService(ServiceBase):
-    @rpc(_returns=Integer, _http_patterns=[HttpPattern('/kac[-_]?cihaz')])
+    @rpc(_returns=Integer, _patterns=[HttpPattern(p) for p in invregexp('/kac[_-]?cihaz/?')])
     def kac_cihaz(self):
         html_content = get_file()
         return count_clients(html_content)

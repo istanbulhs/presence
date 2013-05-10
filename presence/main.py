@@ -37,8 +37,7 @@ import presence
 from spyne.protocol.http import HttpRpc
 from spyne.protocol.json import JsonDocument
 from spyne.server.wsgi import WsgiApplication
-
-from presence.application import MyApplication
+from spyne.application import Application
 
 from presence.entity.device import DeviceService
 
@@ -53,10 +52,10 @@ def main():
 
     logging.basicConfig(level=logging.DEBUG)
 
-    application = MyApplication([DeviceService],
+    application = Application([DeviceService],
                 'http://istanbulhs.org/api',
                 in_protocol=HttpRpc(validator='soft'),
-                out_protocol=JsonDocument(ignore_wrappers=True),
+                out_protocol=JsonDocument(),
             )
 
     wsgi_app = WsgiApplication(application)
