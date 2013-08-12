@@ -86,7 +86,7 @@ setup(
     license='BSD',
     zip_safe=False,
     install_requires=['spyne>=2.10', 'werkzeug', 'pyparsing<1.9', 'simplejson',
-                      'pyyaml'],
+                      'pyyaml','requests'],
 
     entry_points={
         'console_scripts': [
