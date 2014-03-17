@@ -27,16 +27,50 @@
 # EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 
-import requests
 
+KOMANDOLAR = "Istanbul Hackerspace"
+
+
+import requests
 import presence
 
 from spyne.service import ServiceBase
 from spyne.decorator import rpc
-from spyne.model.primitive import Integer
+from spyne.model.primitive import Integer, Unicode, AnyUri, ImageUri
+from spyne.model.primitive import Double, Boolean
+from spyne.model.complex import ComplexModel, Array
 from spyne.protocol.http import HttpPattern
 
 from spyne.util.invregexp import invregexp
+
+class SpaceLocation(ComplexModel):
+    address = Unicode
+    lon = Double
+    lat = Double
+
+
+class SpaceContact(ComplexModel):
+    twitter = Unicode(pattern="@[a-z0-9]+")
+    # burayi doldurmak gerekecek
+
+IssueReportChannel = Unicode(values=["twitter"], # bunu da
+                                type_name="IssueReportChannelType")
+
+class SpaceState(ComplexModel):
+    open = Boolean
+
+
+class SpaceStatus(ComplexModel):
+    _type_info = [
+        ("api", Unicode(default=u"0.13")),
+        ("space", Unicode),
+        ("logo", ImageUri),
+        ("url", AnyUri),
+        ("location", SpaceLocation),
+        ("contact", SpaceContact),
+        ("issue_report_channels", Array(IssueReportChannel)),
+        ("state", SpaceState),
+    ]
 
 
 def get_file():
@@ -62,7 +96,29 @@ def count_clients(html_string):
 
 
 class DeviceService(ServiceBase):
-    @rpc(_returns=Integer, _patterns=[HttpPattern(p) for p in invregexp('/kac[_-]?cihaz/?')])
+    @rpc(_returns=Integer,
+         _patterns=[HttpPattern(p) for p in invregexp('/kac[_-]?cihaz/?')])
     def kac_cihaz(self):
         html_content = get_file()
         return count_clients(html_content)
+
+    @rpc(_returns=SpaceStatus)
+    def presence(self):
+        # buradaki verinin bir kısmını constant olarak yukarıya mı alsak?
+        return SpaceStatus(
+            space=KOMANDOLAR,
+            logo="http://istanbulhs.org/logo.png", # FIXME: attim
+            url="http://istanbulhs.org",
+            location=SpaceLocation(
+                lat=41,
+                lon=29,
+                address=u"Falan sk. Kadıköy",
+            ),
+            contact=SpaceContact(
+                twitter="@istanbulhs"
+            ),
+            issue_report_channels=["twitter"],
+            state=SpaceState(
+                open=True,
+            ),
+        )
