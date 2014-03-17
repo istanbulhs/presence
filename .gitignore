@@ -10,3 +10,6 @@ nbproject
 
 # don't commit this!
 config.yaml
+
+# pycharm cruft
+.idea
