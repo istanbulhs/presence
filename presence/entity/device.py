@@ -94,6 +94,17 @@ def count_clients(html_string):
     else:
         return html_string.count(ssid)
 
+def hackerspace_status(html_string):
+    ssid = presence.config['modem']['ssid']
+
+    if html_string is None or "" == html_string:
+        return None;
+    else
+        count = html_string.count(ssid)
+        if(count == 0)
+            return False
+        else
+            return True
 
 class DeviceService(ServiceBase):
     @rpc(_returns=Integer,
@@ -107,18 +118,18 @@ class DeviceService(ServiceBase):
         # buradaki verinin bir kısmını constant olarak yukarıya mı alsak?
         return SpaceStatus(
             space=KOMANDOLAR,
-            logo="http://istanbulhs.org/logo.png", # FIXME: attim
-            url="http://istanbulhs.org",
+            logo="http://s.gravatar.com/avatar/3c9fcdce41f596d8d9d4432a606e14de?s=80",
+            url="https://www.istanbulhs.org",
             location=SpaceLocation(
-                lat=41,
-                lon=29,
-                address=u"Falan sk. Kadıköy",
+                lat=40.993498,
+                lon=29.042059,
+                address=u"Eğitim Mah. Ömerbey (Çıkmaz) Sokak. No:19/B Kadıköy/İSTANBUL",
             ),
             contact=SpaceContact(
                 twitter="@istanbulhs"
             ),
             issue_report_channels=["twitter"],
             state=SpaceState(
-                open=True,
-            ),
+                open=hackerspace_status(get_file()),
+            )
         )
