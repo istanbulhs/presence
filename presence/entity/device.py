@@ -101,9 +101,9 @@ def hackerspace_status(html_string):
         return None
     else:
         count = html_string.count(ssid)
-        if(count == 0)
+        if count == 0:
             return False
-        else
+        else:
             return True
 
 class DeviceService(ServiceBase):
