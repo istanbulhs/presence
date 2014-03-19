@@ -98,7 +98,7 @@ def hackerspace_status(html_string):
     ssid = presence.config['modem']['ssid']
 
     if html_string is None or "" == html_string:
-        return None;
+        return None
     else
         count = html_string.count(ssid)
         if(count == 0)
