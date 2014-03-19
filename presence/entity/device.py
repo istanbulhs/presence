@@ -99,7 +99,7 @@ def hackerspace_status(html_string):
 
     if html_string is None or "" == html_string:
         return None
-    else
+    else:
         count = html_string.count(ssid)
         if(count == 0)
             return False
